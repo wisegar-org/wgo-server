@@ -1,0 +1,36 @@
+{
+  "name": "wgo-template-module",
+  "version": "0.0.1-build.0",
+  "description": "WGO Module Template",
+  "main": "build/index.js",
+  "scripts": {
+    "start": "nodemon",
+    "build": "npx rimraf ./build && tsc",
+    "promote": "npm version prerelease && npm run build && npm publish",
+    "test": "jest --detectOpenHandles"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wisegar-org/wgo-template-module.git"
+  },
+  "keywords": [
+    "wisegar",
+    "template",
+    "nodejs",
+    "typescript"
+  ],
+  "author": "Wisegar.org Development Group",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wisegar-org/wgo-template-module/issues"
+  },
+  "homepage": "https://github.com/wisegar-org/wgo-template-module#readme",
+  "devDependencies": {
+    "@types/jest": "27.4.1",
+    "jest": "27.5.1",
+    "nodemon": "2.0.15",
+    "ts-jest": "27.1.4",
+    "ts-node": "10.7.0",
+    "typescript": "4.6.3"
+  }
+}
