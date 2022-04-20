@@ -3,11 +3,6 @@ import {
   IsNullOrUndefined,
   IsStringEmptyNullOrUndefined,
 } from "@wisegar-org/wgo-object-extensions";
-import {
-  GetExpiresInKey,
-  GetPrivateKey,
-  GetPublicKey,
-} from "@wisegar-org/wgo-settings";
 import { Request, Response, NextFunction } from "express";
 import * as jwt from "jsonwebtoken";
 
@@ -70,7 +65,7 @@ export const validateAccessToken = (
 
   try {
     const jwtPayload: AccessTokenData = <AccessTokenData>(
-      jwt.verify(options.token, GetPublicKey(), { algorithms: [algorithm] })
+      jwt.verify(options.token, options.publicKey, { algorithms: [algorithm] })
     );
     const exp = (jwtPayload && jwtPayload.exp) || "";
     jwtPayload.expiring = exp > new Date().getTime() - timeBeforeExpiration;
@@ -83,7 +78,9 @@ export const validateAccessToken = (
 export const JWTMiddleware = (
   req: Request,
   res: Response,
-  validateTokenFn: (token: string) => AccessTokenData | null
+  validateTokenFn: (token: string) => AccessTokenData | null,
+  expiresIn: any,
+  privateKey: string
 ): AccessTokenData | undefined => {
   if (IsStringEmptyNullOrUndefined(req.headers["authorization"] as string))
     return;
@@ -95,8 +92,12 @@ export const JWTMiddleware = (
       return;
     }
     if (result.expiring) {
-      const { sessionId, userId, userName } = result;
-      const newToken = generateAccessToken({ userId, userName });
+      const options: IGenerateAccessTokenOptions = {
+        user: result,
+        expiresIn: expiresIn,
+        privateKey: privateKey,
+      };
+      const newToken = generateAccessToken(options);
       res.set("authorization-refresh", newToken);
     }
     return result;

@@ -39,6 +39,7 @@ export const boot = async (options: IServerOptions, seedCallback?: any) => {
     const response = JsonResponse(false, 404, "resource not found");
     res.json(response);
   });
+
   (() => {
     options.app.listen(options.port, () =>
       console.log(`> Listening on port ${options.port}`)

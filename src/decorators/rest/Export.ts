@@ -1,4 +1,4 @@
-import { validate, ValidationError } from 'class-validator';
+import { validate, ValidationError } from "class-validator";
 
 export interface FormConstructor {
   new (): unknown;
@@ -24,11 +24,13 @@ export class ExportableForm {
     let errors: { [key: string]: string } = {};
     const eKeys = Object.keys(error.constraints);
     eKeys.map((key) => {
-      errors[key] = error.constraints[key].replace(/ /g, '_');
+      errors[key] = error.constraints[key].replace(/ /g, "_");
     });
     return { property: error.property, errors: errors };
   }
-  async parseBody(body: { [key: string]: string }): Promise<SimpleValidationError[]> {
+  async parseBody(body: {
+    [key: string]: string;
+  }): Promise<SimpleValidationError[]> {
     const props = Object.getOwnPropertyNames(this);
     props.map((p) => {
       this[p] = undefined;

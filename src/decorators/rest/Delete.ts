@@ -13,13 +13,11 @@ export const Delete = (
     if (!Reflect.hasMetadata("routes", target.constructor)) {
       Reflect.defineMetadata("routes", [], target.constructor);
     }
-
     // Get the routes stored so far, extend it by the new route and re-set the metadata.
     const routes = Reflect.getMetadata(
       "routes",
       target.constructor
     ) as Array<RouteDefinition>;
-
     routes.push({
       requestMethod: "delete",
       path,
