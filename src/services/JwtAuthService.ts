@@ -25,7 +25,7 @@ export interface IValidateAccessTokenOptions {
   token: string;
   privateKey?: string;
   expiresIn?: string;
-  user: AccessTokenData;
+  user?: AccessTokenData;
   publicKey: string;
 }
 
@@ -78,8 +78,11 @@ export const validateAccessToken = (
 export const JWTMiddleware = (
   req: Request,
   res: Response,
-  validateTokenFn: (token: string) => AccessTokenData | null,
+  validateTokenFn: (
+    options: IValidateAccessTokenOptions
+  ) => AccessTokenData | null,
   expiresIn: any,
+  publicKey: string,
   privateKey: string
 ): AccessTokenData | undefined => {
   if (IsStringEmptyNullOrUndefined(req.headers["authorization"] as string))
@@ -87,7 +90,7 @@ export const JWTMiddleware = (
 
   const token: string = req.headers["authorization"] || "";
   try {
-    const result = validateTokenFn(token);
+    const result = validateTokenFn({ token, publicKey: publicKey });
     if (!result || IsNull(result)) {
       return;
     }

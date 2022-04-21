@@ -3,7 +3,11 @@ import { IsNullOrUndefined } from "@wisegar-org/wgo-object-extensions";
 import express from "express";
 import { IContextOptions } from "../interfaces/IContextOptions";
 import { IServerOptions } from "../interfaces/IServerOptions";
-import { AccessTokenData, JWTMiddleware } from "../services/JwtAuthService";
+import {
+  AccessTokenData,
+  JWTMiddleware,
+  validateAccessToken,
+} from "../services/JwtAuthService";
 
 const isGraphql = (req: express.Request) => {
   return req.originalUrl.toLocaleLowerCase().includes("graphql");
@@ -28,7 +32,14 @@ const graphqlTokenErrorHandler = (res: express.Response, error: any) => {
 export const jwt = (options: IServerOptions) => {
   return (req: express.Request, res: express.Response, next: () => void) => {
     try {
-      const tokenData: AccessTokenData = JWTMiddleware(req, res);
+      const tokenData: AccessTokenData | undefined = JWTMiddleware(
+        req,
+        res,
+        validateAccessToken,
+        options.expiresIn,
+        options.publicKey,
+        options.privateKey
+      );
       if (IsNullOrUndefined(tokenData)) {
         next();
         return;

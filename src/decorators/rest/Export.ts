@@ -16,15 +16,17 @@ export interface SimpleValidationError {
 const P = <T>(property: (object: T) => void) => {
   const chaine = property.toString();
   const arr = chaine.match(/[\s\S]*{[\s\S]*\.([^\.; ]*)[ ;\n]*}/);
-  return arr[1];
+  return arr && arr.length > 0 ? arr[1] : null;
 };
 
 export class ExportableForm {
   transformError(error: ValidationError): SimpleValidationError {
     let errors: { [key: string]: string } = {};
-    const eKeys = Object.keys(error.constraints);
+    const eKeys = Object.keys(error.constraints || []);
     eKeys.map((key) => {
-      errors[key] = error.constraints[key].replace(/ /g, "_");
+      errors[key] = error.constraints
+        ? error.constraints[key].replace(/ /g, "_")
+        : "";
     });
     return { property: error.property, errors: errors };
   }
@@ -33,9 +35,9 @@ export class ExportableForm {
   }): Promise<SimpleValidationError[]> {
     const props = Object.getOwnPropertyNames(this);
     props.map((p) => {
-      this[p] = undefined;
+      (this as any)[p] = undefined;
       if (body[p]) {
-        this[p] = body[p];
+        (this as any)[p] = body[p];
       }
     });
     const errors = await validate(this);

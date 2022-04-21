@@ -7,7 +7,7 @@ export const Delete = (
   formBody: FormConstructor,
   response: ResponseConstructor
 ): MethodDecorator => {
-  return (target, propertyKey: string): void => {
+  return (target, propertyKey: string | symbol): void => {
     // In case this is the first route to be registered the `routes` metadata is likely to be undefined at this point.
     // To prevent any further validation simply set it to an empty array here.
     if (!Reflect.hasMetadata("routes", target.constructor)) {
@@ -21,7 +21,7 @@ export const Delete = (
     routes.push({
       requestMethod: "delete",
       path,
-      methodName: propertyKey,
+      methodName: propertyKey as string,
       controller: target.constructor.name,
       formParams: formParams ? new formParams() : null,
       formBody: formBody ? new formBody() : null,

@@ -26,4 +26,7 @@ export interface IServerOptions {
   useOnlyGraphQL?: boolean;
   typeDefs?: DocumentNode | Array<DocumentNode> | string | Array<string>;
   useCors?: boolean;
+  publicKey: string;
+  privateKey: string;
+  expiresIn: any;
 }
