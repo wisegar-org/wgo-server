@@ -4,7 +4,7 @@ import {
   IsStringEmptyNullOrUndefined,
 } from "@wisegar-org/wgo-object-extensions";
 import { Request, Response, NextFunction } from "express";
-import * as jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 export interface AccessTokenData {
   userId: number;

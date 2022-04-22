@@ -1,58 +1,16 @@
-import "reflect-metadata";
-import cors from "cors";
-import express, { Request, Response, NextFunction } from "express";
-import { graphqlUploadExpress } from "graphql-upload";
-import { getApolloServer } from "./graphql/server";
-import { IServerOptions } from "./interfaces/IServerOptions";
-import ErrorHandler from "./rest/errorHandler";
-import { JsonResponse } from "./rest/responses";
-import { configRouter as configRest } from "./rest/router";
+export * from "./interfaces/IContextOptions";
+export * from "./interfaces/IResponse";
+export * from "./interfaces/IRouteDefinition";
+export * from "./interfaces/IServerOptions";
 
-export const boot = async (options: IServerOptions, seedCallback?: any) => {
-  options.app = options.app ? options.app : express();
+export * from "./decorators/Permission";
+export * from "./decorators/rest/Controller";
+export * from "./decorators/rest/Delete";
+export * from "./decorators/rest/Export";
+export * from "./decorators/rest/Get";
+export * from "./decorators/rest/Post";
+export * from "./decorators/rest/Put";
 
-  const server = await getApolloServer(options);
-  server.start();
+export * from "./services/JwtAuthService";
 
-  options.app.use(graphqlUploadExpress());
-
-  if (options.useCors) {
-    options.app.use(cors());
-  }
-
-  if (options.middlewares) {
-    options.middlewares(options.app);
-  }
-
-  if (options.controllers) {
-    configRest(options.controllers, options.app);
-  }
-
-  options.app.use(
-    (err: ErrorHandler, req: Request, res: Response, next: NextFunction) => {
-      const response = JsonResponse(false, err.statusCode || 500, err.message);
-      res.json(response);
-    }
-  );
-
-  options.app.use((req: Request, res: Response, next: NextFunction) => {
-    const response = JsonResponse(false, 404, "resource not found");
-    res.json(response);
-  });
-
-  (() => {
-    options.app.listen(options.port, () =>
-      console.log(`> Listening on port ${options.port}`)
-    );
-  })();
-
-  server.applyMiddleware({ app: options.app });
-
-  if (seedCallback) seedCallback();
-
-  console.log("Server port: ", process.env.PORT);
-
-  process.on("SIGINT", function () {
-    process.exit(0);
-  });
-};
+export * from "./server/boot";
