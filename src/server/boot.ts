@@ -12,7 +12,7 @@ export const start = async (options: IServerOptions, onStart?: any) => {
   options.app = options.app ? options.app : express();
 
   const server = await getApolloServer(options);
-  server.start();
+  await server.start();
 
   options.app.use(graphqlUploadExpress());
 
