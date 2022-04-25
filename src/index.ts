@@ -14,3 +14,6 @@ export * from "./decorators/rest/Put";
 export * from "./services/JwtAuthService";
 
 export * from "./server/boot";
+
+export * from "graphql";
+export * from "graphql-upload";
