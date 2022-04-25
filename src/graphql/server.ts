@@ -15,7 +15,6 @@ export const getApolloServer = async (options: IServerOptions) => {
     schema: schema,
     formatError: options.formatError,
     context: async ({ req, res }) => {
-      debugger;
       jwt(options);
       const contextOptions: IContextOptions = {
         tokenPayload: (req as any).tokenPayload,

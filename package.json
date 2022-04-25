@@ -39,16 +39,17 @@
   "dependencies": {
     "@wisegar-org/wgo-core": "0.0.1-build.20",
     "@wisegar-org/wgo-object-extensions": "0.0.1-build.8",
+    "apollo-server": "3.6.7",
     "apollo-server-express": "3.6.7",
-    "class-validator": "0.13.2",
+    "class-validator": "^0.13.2",
     "cors": "2.8.5",
     "express": "4.17.3",
-    "graphql": "16.3.0",
+    "graphql": "^15.8.0",
     "graphql-upload": "13.0.0",
     "jsonwebtoken": "8.5.1",
-    "npm": "^8.7.0",
     "reflect-metadata": "0.1.13",
     "run": "^1.4.0",
-    "start": "^5.1.0"
+    "start": "^5.1.0",
+    "type-graphql": "^1.1.1"
   }
 }
