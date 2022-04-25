@@ -1,13 +1,12 @@
 import {
   IsNull,
-  IsNullOrUndefined,
   IsStringEmptyNullOrUndefined,
 } from "@wisegar-org/wgo-object-extensions";
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
 export interface AccessTokenData {
-  userId: number;
+  userId: string;
   userName: string;
   sessionId: number;
   iat?: number;
@@ -46,7 +45,6 @@ export const generateAccessToken = (options: IGenerateAccessTokenOptions) => {
     throw "generateAccessToken - privateKey param most be valid";
   if (!options.expiresIn)
     throw "generateAccessToken - expiresIn param most be valid";
-
   const token = jwt.sign(options.userId, options.privateKey, {
     expiresIn: options.expiresIn,
     algorithm: algorithm,
@@ -60,7 +58,6 @@ export const validateAccessToken = (
   if (!options) throw "validateAccessToken - options most be valid";
   if (!options.token)
     throw "validateAccessToken - AccessTokenData most be valid";
-
   try {
     const jwtPayload: AccessTokenData = <AccessTokenData>(
       jwt.verify(options.token, options.publicKey, { algorithms: [algorithm] })
@@ -94,7 +91,7 @@ export const JWTMiddleware = (
     }
     if (result.expiring) {
       const options: IGenerateAccessTokenOptions = {
-        user: result,
+        userId: result.userId,
         expiresIn: expiresIn,
         privateKey: privateKey,
       };
