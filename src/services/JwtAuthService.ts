@@ -16,9 +16,9 @@ export interface AccessTokenData {
 }
 
 export interface IGenerateAccessTokenOptions {
-  privateKey?: string;
-  expiresIn?: string;
-  user: AccessTokenData;
+  privateKey: string;
+  expiresIn: string;
+  userId: string;
 }
 
 export interface IValidateAccessTokenOptions {
@@ -40,16 +40,14 @@ const timeBeforeExpiration = 3600;
 
 export const generateAccessToken = (options: IGenerateAccessTokenOptions) => {
   if (!options) throw "generateAccessToken - options most be valid";
-  if (!options.user)
-    throw "generateAccessToken - AccessTokenData most be valid";
-  if (!options.user.userId)
+  if (!options.userId)
     throw "generateAccessToken - user id param most be valid";
   if (!options.privateKey)
     throw "generateAccessToken - privateKey param most be valid";
   if (!options.expiresIn)
-    throw "generateAccessToken - privateKey param most be valid";
+    throw "generateAccessToken - expiresIn param most be valid";
 
-  const token = jwt.sign(options.user, options.privateKey, {
+  const token = jwt.sign(options.userId, options.privateKey, {
     expiresIn: options.expiresIn,
     algorithm: algorithm,
   });
