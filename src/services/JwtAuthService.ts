@@ -17,15 +17,15 @@ export interface AccessTokenData {
 export interface IGenerateAccessTokenOptions {
   privateKey: string;
   expiresIn: string;
-  userId: string;
+  payload: AccessTokenData;
 }
 
 export interface IValidateAccessTokenOptions {
   token: string;
+  publicKey: string;
+  payload?: AccessTokenData;
   privateKey?: string;
   expiresIn?: string;
-  user?: AccessTokenData;
-  publicKey: string;
 }
 
 /**
@@ -39,13 +39,15 @@ const timeBeforeExpiration = 3600;
 
 export const generateAccessToken = (options: IGenerateAccessTokenOptions) => {
   if (!options) throw "generateAccessToken - options most be valid";
-  if (!options.userId)
-    throw "generateAccessToken - user id param most be valid";
+  if (!options.payload)
+    throw "generateAccessToken - payload param most be valid";
+  if (!options.payload.userId && !options.payload.userName)
+    throw "generateAccessToken - user id or username param most be valid";
   if (!options.privateKey)
     throw "generateAccessToken - privateKey param most be valid";
   if (!options.expiresIn)
     throw "generateAccessToken - expiresIn param most be valid";
-  const token = jwt.sign(options.userId, options.privateKey, {
+  const token = jwt.sign(options.payload, options.privateKey, {
     expiresIn: options.expiresIn,
     algorithm: algorithm,
   });
@@ -91,7 +93,7 @@ export const JWTMiddleware = (
     }
     if (result.expiring) {
       const options: IGenerateAccessTokenOptions = {
-        userId: result.userId,
+        payload: result,
         expiresIn: expiresIn,
         privateKey: privateKey,
       };
