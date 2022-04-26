@@ -12,6 +12,7 @@ export const start = async (options: IServerOptions, onStart?: any) => {
   options.app = options.app ? options.app : express();
 
   const server = await getApolloServer(options);
+  await server.start();
 
   if (options.useCors) {
     options.app.use(cors());
