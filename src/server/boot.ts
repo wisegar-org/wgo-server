@@ -12,13 +12,12 @@ export const start = async (options: IServerOptions, onStart?: any) => {
   options.app = options.app ? options.app : express();
 
   const server = await getApolloServer(options);
-  await server.start();
-
-  options.app.use(graphqlUploadExpress());
 
   if (options.useCors) {
     options.app.use(cors());
   }
+
+  options.app.use(graphqlUploadExpress());
 
   if (options.middlewares) {
     options.middlewares(options.app);
@@ -40,17 +39,13 @@ export const start = async (options: IServerOptions, onStart?: any) => {
     res.json(response);
   });
 
-  (() => {
-    options.app.listen(options.port, () =>
-      console.log(`> Listening on port ${options.port}`)
-    );
-  })();
-
   server.applyMiddleware({ app: options.app });
 
-  if (onStart) onStart();
-
-  console.log("Server port: ", process.env.PORT);
+  options.app.listen(options.port, () => {
+    if (onStart) onStart();
+    console.log(`> Listening on port ${options.port}`);
+    console.log("Server port: ", process.env.PORT);
+  });
 
   process.on("SIGINT", function () {
     process.exit(0);
