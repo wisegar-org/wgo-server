@@ -11,6 +11,7 @@ import { JwtMiddleware } from "../middlewares/JwtMiddleware";
 
 export const boot = async (options: IServerOptions, onStart?: any) => {
   debugger;
+  console.log("Running boot!");
   options.app = options.app ? options.app : express();
 
   const server = await getApolloServer(options);
@@ -21,7 +22,7 @@ export const boot = async (options: IServerOptions, onStart?: any) => {
     options.app.use(cors());
   }
 
-  options.app.use(JwtMiddleware(options));
+  // options.app.use(JwtMiddleware(options));
 
   options.app.use(graphqlUploadExpress());
 
@@ -35,6 +36,7 @@ export const boot = async (options: IServerOptions, onStart?: any) => {
 
   options.app.use(
     (err: ErrorHandler, req: Request, res: Response, next: NextFunction) => {
+      console.log("Running ErrorHandler use!");
       const response = JsonResponse(false, err.statusCode || 500, err.message);
       res.json(response);
     }
@@ -42,15 +44,16 @@ export const boot = async (options: IServerOptions, onStart?: any) => {
 
   options.app.use((req: Request, res: Response, next: NextFunction) => {
     const response = JsonResponse(false, 404, "resource not found");
+    console.log("Running Not found use!");
     res.json(response);
   });
 
-  options.app.listen(options.port, "localhost", () => {
+  server.applyMiddleware({ app: options.app });
+
+  options.app.listen(options.port, () => {
     if (onStart) onStart();
     console.log(`> Listening on port ${options.port}`);
   });
-
-  server.applyMiddleware({ app: options.app });
 
   process.on("SIGINT", function () {
     server.stop();

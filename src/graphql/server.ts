@@ -14,6 +14,7 @@ export const getApolloServer = async (options: IServerOptions) => {
     schema: schema,
     formatError: options.formatError,
     context: async ({ req, res }) => {
+      console.log("Running context!");
       const contextOptions: IContextOptions = {
         tokenPayload: (req as any).tokenPayload,
         requestHeaders: req.headers,
