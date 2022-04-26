@@ -15,14 +15,14 @@ export const boot = async (options: IServerOptions, onStart?: any) => {
   options.app = options.app ? options.app : express();
 
   const server = await getApolloServer(options);
-
   await server.start();
+  server.applyMiddleware({ app: options.app });
 
   if (options.useCors) {
     options.app.use(cors());
   }
 
-  // options.app.use(JwtMiddleware(options));
+  options.app.use(JwtMiddleware(options));
 
   options.app.use(graphqlUploadExpress());
 
@@ -47,8 +47,6 @@ export const boot = async (options: IServerOptions, onStart?: any) => {
     console.log("Running Not found use!");
     res.json(response);
   });
-
-  server.applyMiddleware({ app: options.app });
 
   options.app.listen(options.port, () => {
     if (onStart) onStart();
