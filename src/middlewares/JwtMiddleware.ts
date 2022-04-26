@@ -5,7 +5,7 @@ import { IContextOptions } from "../interfaces/IContextOptions";
 import { IServerOptions } from "../interfaces/IServerOptions";
 import {
   AccessTokenData,
-  JWTMiddleware,
+  jwtValidator,
   validateAccessToken,
 } from "../services/JwtAuthService";
 
@@ -29,10 +29,10 @@ const graphqlTokenErrorHandler = (res: express.Response, error: any) => {
   res.end();
 };
 
-export const jwt = (options: IServerOptions) => {
+export const JwtMiddleware = (options: IServerOptions) => {
   return (req: express.Request, res: express.Response, next: () => void) => {
     try {
-      const tokenData: AccessTokenData | undefined = JWTMiddleware(
+      const tokenData: AccessTokenData | undefined = jwtValidator(
         req,
         res,
         validateAccessToken,

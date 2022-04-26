@@ -5,7 +5,6 @@ import {
 import { ApolloServer } from "apollo-server-express";
 import { IContextOptions } from "../interfaces/IContextOptions";
 import { IServerOptions } from "../interfaces/IServerOptions";
-import { jwt } from "../middlewares/JwtMiddleware";
 import { getGqlSchema } from "./schema";
 
 export const getApolloServer = async (options: IServerOptions) => {
@@ -15,12 +14,10 @@ export const getApolloServer = async (options: IServerOptions) => {
     schema: schema,
     formatError: options.formatError,
     context: async ({ req, res }) => {
-      jwt(options);
       const contextOptions: IContextOptions = {
         tokenPayload: (req as any).tokenPayload,
         requestHeaders: req.headers,
       };
-
       return await options.context(contextOptions);
     },
     typeDefs: options.typeDefs,

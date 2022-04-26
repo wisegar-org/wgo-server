@@ -72,7 +72,7 @@ export const validateAccessToken = (
   }
 };
 
-export const JWTMiddleware = (
+export const jwtValidator = (
   req: Request,
   res: Response,
   validateTokenFn: (
