@@ -7,18 +7,21 @@ import { IServerOptions } from "../interfaces/IServerOptions";
 import ErrorHandler from "../rest/errorHandler";
 import { JsonResponse } from "../rest/responses";
 import { configRouter as configRest } from "../rest/router";
+import { JwtMiddleware } from "../middlewares/JwtMiddleware";
 
-export const start = async (options: IServerOptions, onStart?: any) => {
+export const boot = async (options: IServerOptions, onStart?: any) => {
+  debugger;
   options.app = options.app ? options.app : express();
 
   const server = await getApolloServer(options);
-  await server.start();
 
-  server.applyMiddleware({ app: options.app });
+  await server.start();
 
   if (options.useCors) {
     options.app.use(cors());
   }
+
+  options.app.use(JwtMiddleware(options));
 
   options.app.use(graphqlUploadExpress());
 
@@ -46,6 +49,8 @@ export const start = async (options: IServerOptions, onStart?: any) => {
     if (onStart) onStart();
     console.log(`> Listening on port ${options.port}`);
   });
+
+  server.applyMiddleware({ app: options.app });
 
   process.on("SIGINT", function () {
     server.stop();
