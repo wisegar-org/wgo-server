@@ -29,9 +29,8 @@ export const boot = async (options: IServerOptions, onStart?: any) => {
 
   const server = await getApolloServer(options);
   await server.start();
-  server.applyMiddleware({ app: options.app });
-
   options.app.use(graphqlUploadExpress());
+  server.applyMiddleware({ app: options.app });
 
   options.app.listen(options.port, () => {
     if (onStart) onStart();
