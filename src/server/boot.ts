@@ -14,6 +14,8 @@ export const start = async (options: IServerOptions, onStart?: any) => {
   const server = await getApolloServer(options);
   await server.start();
 
+  server.applyMiddleware({ app: options.app });
+
   if (options.useCors) {
     options.app.use(cors());
   }
@@ -40,15 +42,13 @@ export const start = async (options: IServerOptions, onStart?: any) => {
     res.json(response);
   });
 
-  server.applyMiddleware({ app: options.app });
-
-  options.app.listen(options.port, () => {
+  options.app.listen(options.port, "localhost", () => {
     if (onStart) onStart();
     console.log(`> Listening on port ${options.port}`);
-    console.log("Server port: ", process.env.PORT);
   });
 
   process.on("SIGINT", function () {
+    server.stop();
     process.exit(0);
   });
 };
