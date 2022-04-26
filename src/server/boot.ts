@@ -29,7 +29,12 @@ export const boot = async (options: IServerOptions, onStart?: any) => {
 
   const server = await getApolloServer(options);
   await server.start();
-  options.app.use(graphqlUploadExpress());
+  options.app.use(
+    graphqlUploadExpress({
+      maxFileSize: options.maxFileSize ? options.maxFileSize : 100000,
+      maxFiles: options.maxFiles ? options.maxFileSize : 10,
+    })
+  );
   server.applyMiddleware({ app: options.app });
 
   options.app.listen(options.port, () => {
