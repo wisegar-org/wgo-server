@@ -16,4 +16,4 @@ export * from "./services/JwtAuthService";
 export * from "./server/boot";
 
 export * from "graphql";
-export { GraphQLUpload } from "graphql-upload";
+export * from "graphql-upload";
