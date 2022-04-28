@@ -3,6 +3,10 @@
   "version": "0.0.1-build.22",
   "description": "WGO Server Module",
   "main": "build/index.js",
+  "files": [
+    "build",
+    ".npmrc"
+  ],
   "scripts": {
     "start": "nodemon",
     "build": "npx rimraf ./build && tsc",
