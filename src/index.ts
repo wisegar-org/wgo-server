@@ -13,7 +13,11 @@ export * from "./decorators/rest/Put";
 
 export * from "./services/JwtAuthService";
 
+export * from "./middlewares/CorsMiddleware";
+export * from "./middlewares/GqlServerMiddleware";
+export * from "./middlewares/GqlUploadMiddleware";
 export * from "./middlewares/JwtMiddleware";
+export * from "./middlewares/RestMiddleware";
 
 export * from "./server/boot";
 export * from "./graphql/server";

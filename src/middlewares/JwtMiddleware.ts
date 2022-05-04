@@ -66,3 +66,10 @@ export const JwtMiddleware = (options: IServerOptions) => {
     }
   };
 };
+
+export const UseJwtMiddleware = (options: IServerOptions) => {
+  if (IsNullOrUndefined(options)) throw new Error("Invalid options parameter");
+  if (IsNullOrUndefined(options.app))
+    throw new Error("Invalid options app parameter");
+  options?.app?.use(JwtMiddleware(options));
+};
