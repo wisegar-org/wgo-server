@@ -17,7 +17,7 @@ export interface IServerOptions {
   authMode?: AuthMode;
   production?: boolean;
   middlewares?: (app: any) => void;
-  port: number;
+  port?: number;
   useGraphQLUpload?: boolean;
   //Max allowed non-file multipart form field size in bytes; enough for your queries (default: 1 MB).
   maxFieldSize?: number;
