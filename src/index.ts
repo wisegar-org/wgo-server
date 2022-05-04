@@ -21,3 +21,4 @@ export * from "./rest/router";
 
 export * from "graphql";
 export * from "graphql-upload";
+export { graphqlUploadExpress } from "graphql-upload";
