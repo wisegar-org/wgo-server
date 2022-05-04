@@ -3,9 +3,9 @@ import { RouteDefinition } from "../../interfaces/IRouteDefinition";
 
 export const Get = (
   path: string,
-  formParams: FormConstructor,
-  formBody: FormConstructor,
-  response: ResponseConstructor
+  formParams?: FormConstructor,
+  formBody?: FormConstructor,
+  response?: ResponseConstructor
 ): MethodDecorator => {
   return (target, propertyKey: string | symbol): void => {
     // In case this is the first route to be registered the `routes` metadata is likely to be undefined at this point.
