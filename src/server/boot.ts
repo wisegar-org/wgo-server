@@ -28,8 +28,6 @@ export const boot = async (options: IServerOptions, onStart?: any) => {
     options.middlewares(options.app);
   }
 
-  UseCorsMiddleware(options);
-
   options.app.listen(options.port, () => {
     if (onStart) onStart();
     console.log(`> Listening on port ${options.port}`);
