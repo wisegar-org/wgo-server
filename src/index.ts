@@ -23,6 +23,10 @@ export * from "./server/boot";
 export * from "./graphql/server";
 export * from "./rest/router";
 
-export * from "graphql";
-export * from "graphql-upload";
+/**
+ * External exports
+ */
+export { ApolloServer, ExpressContext } from "apollo-server-express";
+export { Express } from "express";
 export { graphqlUploadExpress } from "graphql-upload";
+export { NonEmptyArray } from "type-graphql";
