@@ -17,7 +17,7 @@ export const UseGqlServer = async (
   if (onCreated && !IsNull(options.app)) {
     onCreated(server, options.app);
   }
-  server.start();
+  await server.start();
   if (onStarted && !IsNull(options.app)) {
     onStarted(server, options.app);
   }
