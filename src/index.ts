@@ -30,3 +30,7 @@ export { ApolloServer, ExpressContext } from "apollo-server-express";
 export { Express } from "express";
 export { graphqlUploadExpress } from "graphql-upload";
 export { NonEmptyArray } from "type-graphql";
+export { UseJwtMiddleware } from "./middlewares/JwtMiddleware";
+export { UseCorsMiddleware } from "./middlewares/CorsMiddleware";
+export { UseGqlServer } from "./middlewares/GqlServerMiddleware";
+export { UseGQLUploadExpress } from "./middlewares/GqlUploadMiddleware";
