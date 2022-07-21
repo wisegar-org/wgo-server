@@ -12,6 +12,7 @@ export const boot = async (options: IServerOptions, onStart?: any) => {
   options.app = options.app ? options.app : express();
   UseCorsMiddleware(options);
   UseJwtMiddleware(options);
+
   const onCreatedGraphQLServer = () => {
     UseGQLUploadExpress(options);
   };
