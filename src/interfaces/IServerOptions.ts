@@ -31,4 +31,5 @@ export interface IServerOptions {
   publicKey: string;
   privateKey: string;
   expiresIn: any;
+  timeBeforeExpiration: string;
 }

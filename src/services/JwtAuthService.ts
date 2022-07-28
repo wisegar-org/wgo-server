@@ -80,14 +80,19 @@ export const jwtValidator = (
   ) => AccessTokenData | null,
   expiresIn: any,
   publicKey: string,
-  privateKey: string
+  privateKey: string,
+  timeBeforeExpiration: string
 ): AccessTokenData | undefined => {
   if (IsStringEmptyNullOrUndefined(req.headers["authorization"] as string))
     return;
 
   const token: string = req.headers["authorization"] || "";
   try {
-    const result = validateTokenFn({ token, publicKey: publicKey });
+    const result = validateTokenFn({
+      token,
+      publicKey: publicKey,
+      timeBeforeExpiration: timeBeforeExpiration,
+    });
     if (!result || IsNull(result)) {
       return;
     }

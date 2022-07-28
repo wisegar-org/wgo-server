@@ -38,7 +38,8 @@ export const JwtMiddleware = (options: IServerOptions) => {
         validateAccessToken,
         options.expiresIn,
         options.publicKey,
-        options.privateKey
+        options.privateKey,
+        options.timeBeforeExpiration
       );
       if (IsNullOrUndefined(tokenData)) {
         next();
