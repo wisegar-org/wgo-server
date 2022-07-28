@@ -26,16 +26,13 @@ export interface IValidateAccessTokenOptions {
   payload?: AccessTokenData;
   privateKey?: string;
   expiresIn?: string;
+  timeBeforeExpiration?: string;
 }
 
 /**
  * @var algorithm Algotithm to apply encription and decription token
  */
 const algorithm = "RS256";
-/**
- * @var timeBeforeExpiration Time to token expiration
- */
-const timeBeforeExpiration = 3600;
 
 export const generateAccessToken = (options: IGenerateAccessTokenOptions) => {
   if (!options) throw "generateAccessToken - options most be valid";
@@ -64,8 +61,11 @@ export const validateAccessToken = (
     const jwtPayload: AccessTokenData = <AccessTokenData>(
       jwt.verify(options.token, options.publicKey, { algorithms: [algorithm] })
     );
-    const exp = (jwtPayload && jwtPayload.exp) || "";
-    jwtPayload.expiring = exp > new Date().getTime() - timeBeforeExpiration;
+    const exp = (jwtPayload && jwtPayload.exp) || 0;
+    const timeBeforeExpiration = parseInt(
+      options.timeBeforeExpiration || "3600"
+    );
+    jwtPayload.expiring = exp >= new Date().getTime() - timeBeforeExpiration;
     return jwtPayload;
   } catch (error) {
     throw `validateAccessToken => Error on token validation:  ${error}`;
