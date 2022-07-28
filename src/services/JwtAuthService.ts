@@ -102,6 +102,9 @@ export const jwtValidator = (
         expiresIn: expiresIn,
         privateKey: privateKey,
       };
+      if (options.payload.exp) delete options.payload.exp;
+      if (options.payload.iat) delete options.payload.iat;
+      if (options.payload.expiring) delete options.payload.expiring;
       const newToken = generateAccessToken(options);
       res.set("authorization-refresh", newToken);
     }
