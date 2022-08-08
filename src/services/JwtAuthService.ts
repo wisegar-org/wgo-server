@@ -61,7 +61,7 @@ export const validateAccessToken = (
     const jwtPayload: AccessTokenData = <AccessTokenData>(
       jwt.verify(options.token, options.publicKey, { algorithms: [algorithm] })
     );
-    const exp = (jwtPayload && jwtPayload.exp) || 0 * 1000;
+    const exp = ((jwtPayload && jwtPayload.exp) || 0) * 1000;
     const timeBeforeExpiration = parseInt(
       options.timeBeforeExpiration || "3600"
     );
