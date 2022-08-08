@@ -53,6 +53,7 @@ export const JwtMiddleware = (options: IServerOptions) => {
       const contextOptions: IContextOptions = {
         tokenPayload: tokenData,
         requestHeaders: req.headers,
+        responseHeaders: res.getHeaders(),
       };
       options.context(contextOptions).then((result: any) => {
         (req as any).context = result;
