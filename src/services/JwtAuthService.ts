@@ -98,7 +98,7 @@ export const jwtValidator = (
     }
     if (result.expiring) {
       const options: IGenerateAccessTokenOptions = {
-        payload: result,
+        payload: { ...result },
         expiresIn: expiresIn,
         privateKey: privateKey,
       };
@@ -106,7 +106,8 @@ export const jwtValidator = (
       if (options.payload.iat) delete options.payload.iat;
       if (options.payload.expiring) delete options.payload.expiring;
       const newToken = generateAccessToken(options);
-      res.set("authorization-refresh", newToken);
+      res.setHeader("authorization-refresh", newToken);
+      req.headers["authorization-refresh"] = newToken;
     }
     return result;
   } catch (error) {

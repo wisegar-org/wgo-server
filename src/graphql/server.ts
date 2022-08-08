@@ -17,6 +17,7 @@ export const getApolloServer = async (options: IServerOptions) => {
       const contextOptions: IContextOptions = {
         tokenPayload: (req as any).tokenPayload,
         requestHeaders: req.headers,
+        responseHeaders: res.getHeaders(),
       };
       const context = await options.context(contextOptions);
       (req as any).context = context;
