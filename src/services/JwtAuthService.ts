@@ -5,6 +5,13 @@ import {
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
+export enum ExpirationFreqEnum {
+  Huge = 2,
+  High = 3,
+  Normal = 4,
+  Low = 5,
+}
+
 export interface AccessTokenData {
   userId: string;
   userName: string;
@@ -26,14 +33,51 @@ export interface IValidateAccessTokenOptions {
   payload?: AccessTokenData;
   privateKey?: string;
   expiresIn?: string;
+  /**
+   * @deprecated Please use
+   */
   timeBeforeExpiration?: string;
+  expirationFreq?: ExpirationFreqEnum;
 }
 
 /**
  * @var algorithm Algotithm to apply encription and decription token
  */
 const algorithm = "RS256";
+const getTokenExpMilliseconds = (jwtPayload: AccessTokenData) => {
+  return (jwtPayload.exp || 0) * 1000;
+};
+const getTokenLifespan = (jwtPayload: AccessTokenData) => {
+  if (!jwt || !jwtPayload.exp || !jwtPayload.iat) return 0;
+  return (jwtPayload.exp - jwtPayload.iat) * 1000;
+};
+const getTokenExpirationTolerance = (
+  jwtPayload: AccessTokenData,
+  expirationFreq: ExpirationFreqEnum
+) => {
+  const tokenLifespan = getTokenLifespan(jwtPayload);
+  if (tokenLifespan === 0) return tokenLifespan;
+  const expFeqValue: number = parseInt(ExpirationFreqEnum[expirationFreq]);
+  return tokenLifespan / expFeqValue;
+};
+const getExpirationPoint = (
+  jwtPayload: AccessTokenData,
+  expirationFreq: ExpirationFreqEnum
+) => {
+  const tokenExpirationTolerance = getTokenExpirationTolerance(
+    jwtPayload,
+    expirationFreq
+  );
+  return getTokenExpMilliseconds(jwtPayload) - tokenExpirationTolerance;
+};
 
+const isTokenExpiring = (
+  jwtPayload: AccessTokenData,
+  expirationFreq: ExpirationFreqEnum
+) => {
+  const tokenExpiringPoint = getExpirationPoint(jwtPayload, expirationFreq);
+  return new Date().getTime() >= tokenExpiringPoint;
+};
 export const generateAccessToken = (options: IGenerateAccessTokenOptions) => {
   if (!options) throw "generateAccessToken - options most be valid";
   if (!options.payload)
@@ -66,6 +110,7 @@ export const validateAccessToken = (
       options.timeBeforeExpiration || "3600"
     );
     jwtPayload.expiring = exp >= new Date().getTime() - timeBeforeExpiration;
+    // jwtPayload.expiring = isTokenExpiring(jwtPayload, options.expirationFreq);
     return jwtPayload;
   } catch (error) {
     throw `validateAccessToken => Error on token validation:  ${error}`;
