@@ -1,3 +1,4 @@
+import { IsStringEmptyNullOrUndefined } from "@wisegar-org/wgo-object-extensions";
 import {
   ApolloServerPluginLandingPageDisabled,
   ApolloServerPluginLandingPageGraphQLPlayground,
@@ -15,11 +16,13 @@ export const getApolloServer = async (options: IServerOptions) => {
     formatError: options.formatError,
     context: async ({ req, res }) => {
       const authorizationRefreshToken = res.get("authorization-refresh");
-      const authorizationRefreshHeader = {
-        "Access-Control-Expose-Headers": "authorization-refresh",
-        "authorization-refresh": authorizationRefreshToken,
-      };
-      res.set(authorizationRefreshHeader);
+      if (!IsStringEmptyNullOrUndefined(authorizationRefreshToken)) {
+        const authorizationRefreshHeader = {
+          "Access-Control-Expose-Headers": "authorization-refresh",
+          "authorization-refresh": authorizationRefreshToken,
+        };
+        res.set(authorizationRefreshHeader);
+      }
 
       const contextOptions: IContextOptions = {
         tokenPayload: (req as any).tokenPayload,
