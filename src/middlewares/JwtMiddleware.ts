@@ -39,7 +39,8 @@ export const JwtMiddleware = (options: IServerOptions) => {
         options.expiresIn,
         options.publicKey,
         options.privateKey,
-        options.timeBeforeExpiration
+        options.timeBeforeExpiration,
+        options.expirationFreq
       );
       if (IsNullOrUndefined(tokenData)) {
         next();

@@ -3,6 +3,7 @@ import { DocumentNode } from "graphql";
 import { AuthMode, NonEmptyArray } from "type-graphql";
 import { IContextOptions } from "./IContextOptions";
 import { Express } from "express";
+import { ExpirationFreqEnum } from "../services/JwtAuthService";
 
 export interface IServerOptions {
   /**
@@ -32,4 +33,5 @@ export interface IServerOptions {
   privateKey: string;
   expiresIn: any;
   timeBeforeExpiration: string;
+  expirationFreq: ExpirationFreqEnum;
 }

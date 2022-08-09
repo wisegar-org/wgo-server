@@ -57,6 +57,7 @@ const getTokenExpirationTolerance = (
 ) => {
   const tokenLifespan = getTokenLifespan(jwtPayload);
   if (tokenLifespan === 0) return tokenLifespan;
+  if (!expirationFreq) expirationFreq = ExpirationFreqEnum.Normal;
   const expFeqValue: number = parseInt(ExpirationFreqEnum[expirationFreq]);
   return tokenLifespan / expFeqValue;
 };
@@ -126,7 +127,8 @@ export const jwtValidator = (
   expiresIn: any,
   publicKey: string,
   privateKey: string,
-  timeBeforeExpiration: string
+  timeBeforeExpiration: string,
+  expirationFreq: ExpirationFreqEnum
 ): AccessTokenData | undefined => {
   if (IsStringEmptyNullOrUndefined(req.headers["authorization"] as string))
     return;
@@ -137,6 +139,7 @@ export const jwtValidator = (
       token,
       publicKey: publicKey,
       timeBeforeExpiration: timeBeforeExpiration,
+      expirationFreq: expirationFreq,
     });
     if (!result || IsNull(result)) {
       return;
