@@ -17,7 +17,7 @@ export const getApolloServer = async (options: IServerOptions) => {
       const authorizationRefreshToken = res.get("authorization-refresh");
       const authorizationRefreshHeader = {
         "Access-Control-Expose-Headers": "authorization-refresh",
-        authorizationRefreshToken,
+        "authorization-refresh": authorizationRefreshToken,
       };
       res.set(authorizationRefreshHeader);
 
