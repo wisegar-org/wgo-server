@@ -33,11 +33,7 @@ export interface IValidateAccessTokenOptions {
   payload?: AccessTokenData;
   privateKey?: string;
   expiresIn?: string;
-  /**
-   * @deprecated Please use
-   */
-  timeBeforeExpiration?: string;
-  expirationFreq?: ExpirationFreqEnum;
+  expirationFreq: ExpirationFreqEnum;
 }
 
 /**
@@ -106,12 +102,7 @@ export const validateAccessToken = (
     const jwtPayload: AccessTokenData = <AccessTokenData>(
       jwt.verify(options.token, options.publicKey, { algorithms: [algorithm] })
     );
-    const exp = ((jwtPayload && jwtPayload.exp) || 0) * 1000;
-    const timeBeforeExpiration = parseInt(
-      options.timeBeforeExpiration || "3600"
-    );
-    jwtPayload.expiring = exp >= new Date().getTime() - timeBeforeExpiration;
-    // jwtPayload.expiring = isTokenExpiring(jwtPayload, options.expirationFreq);
+    jwtPayload.expiring = isTokenExpiring(jwtPayload, options.expirationFreq);
     return jwtPayload;
   } catch (error) {
     throw `validateAccessToken => Error on token validation:  ${error}`;
@@ -127,7 +118,6 @@ export const jwtValidator = (
   expiresIn: any,
   publicKey: string,
   privateKey: string,
-  timeBeforeExpiration: string,
   expirationFreq: ExpirationFreqEnum
 ): AccessTokenData | undefined => {
   if (IsStringEmptyNullOrUndefined(req.headers["authorization"] as string))
@@ -138,7 +128,6 @@ export const jwtValidator = (
     const result = validateTokenFn({
       token,
       publicKey: publicKey,
-      timeBeforeExpiration: timeBeforeExpiration,
       expirationFreq: expirationFreq,
     });
     if (!result || IsNull(result)) {

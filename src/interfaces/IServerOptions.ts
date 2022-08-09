@@ -32,6 +32,9 @@ export interface IServerOptions {
   publicKey: string;
   privateKey: string;
   expiresIn: any;
-  timeBeforeExpiration: string;
+  /**
+   * @deprecated Please use property expirationFreq instead
+   */
+  timeBeforeExpiration?: string;
   expirationFreq: ExpirationFreqEnum;
 }

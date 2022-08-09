@@ -7,9 +7,14 @@ import { UseGqlServer } from "../middlewares/GqlServerMiddleware";
 import { UseGQLUploadExpress } from "../middlewares/GqlUploadMiddleware";
 import { ApolloServer, ExpressContext } from "apollo-server-express";
 import { Express } from "express";
+import { ExpirationFreqEnum } from "../services/JwtAuthService";
 
 export const boot = async (options: IServerOptions, onStart?: any) => {
   options.app = options.app ? options.app : express();
+  options.expirationFreq = options.expirationFreq
+    ? options.expirationFreq
+    : ExpirationFreqEnum.Normal;
+
   UseCorsMiddleware(options);
   UseJwtMiddleware(options);
 
