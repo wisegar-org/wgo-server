@@ -14,11 +14,19 @@ export const getApolloServer = async (options: IServerOptions) => {
     schema: schema,
     formatError: options.formatError,
     context: async ({ req, res }) => {
+      const authorizationRefreshToken = res.get("authorization-refresh");
+      const authorizationRefreshHeader = {
+        "Access-Control-Expose-Headers": "authorization-refresh",
+        authorizationRefreshToken,
+      };
+      res.set(authorizationRefreshHeader);
+
       const contextOptions: IContextOptions = {
         tokenPayload: (req as any).tokenPayload,
         requestHeaders: req.headers,
         responseHeaders: res.getHeaders(),
       };
+
       const context = await options.context(contextOptions);
       (req as any).context = context;
       return context;
