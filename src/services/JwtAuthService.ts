@@ -54,7 +54,7 @@ const getTokenExpirationTolerance = (
   const tokenLifespan = getTokenLifespan(jwtPayload);
   if (tokenLifespan === 0) return tokenLifespan;
   if (!expirationFreq) expirationFreq = ExpirationFreqEnum.Normal;
-  const expFeqValue: number = parseInt(ExpirationFreqEnum[expirationFreq]);
+  const expFeqValue: number = expirationFreq;
   return tokenLifespan / expFeqValue;
 };
 const getExpirationPoint = (
