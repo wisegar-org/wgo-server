@@ -13,6 +13,7 @@ export const getApolloServer = async (options: IServerOptions) => {
   return new ApolloServer({
     introspection: !options.production,
     schema: schema,
+    persistedQueries: false,
     formatError: options.formatError,
     context: async ({ req, res }) => {
       const authorizationRefreshToken = res.get("authorization-refresh") || "";
@@ -21,6 +22,7 @@ export const getApolloServer = async (options: IServerOptions) => {
         "Access-Control-Expose-Headers": "authorization-refresh",
         "authorization-refresh": authorizationRefreshToken,
       };
+
       res.set(authorizationRefreshHeader);
 
       const contextOptions: IContextOptions = {
