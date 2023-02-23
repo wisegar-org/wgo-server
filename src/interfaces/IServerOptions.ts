@@ -18,14 +18,12 @@ export interface IServerOptions {
   production?: boolean;
   middlewares?: (app: any) => void;
   port?: number;
-  useGraphQLUpload?: boolean;
   //Max allowed non-file multipart form field size in bytes; enough for your queries (default: 1 MB).
   maxFieldSize?: number;
   //Max allowed file size in bytes (default: Infinity).
   maxFileSize?: number;
   //Max allowed number of files (default: Infinity).
   maxFiles?: number;
-  useOnlyGraphQL?: boolean;
   typeDefs?: DocumentNode | Array<DocumentNode> | string | Array<string>;
   useCors?: boolean;
   publicKey: string;

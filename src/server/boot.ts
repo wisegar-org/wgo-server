@@ -4,33 +4,34 @@ import { IServerOptions } from "../interfaces/IServerOptions";
 import { UseJwtMiddleware } from "../middlewares/JwtMiddleware";
 import { UseCorsMiddleware } from "../middlewares/CorsMiddleware";
 import { UseGqlServer } from "../middlewares/GqlServerMiddleware";
-import { UseGQLUploadExpress } from "../middlewares/GqlUploadMiddleware";
-import { Express } from "express";
 import { ExpirationFreqEnum } from "../services/JwtAuthService";
-import { ApolloServer, BaseContext } from "@apollo/server";
+import { UseRestMiddleware } from "../middlewares/RestMiddleware";
 
 export const boot = async (options: IServerOptions, onStart?: any) => {
   options.app = options.app ? options.app : express();
+
   options.expirationFreq = options.expirationFreq
     ? options.expirationFreq
     : ExpirationFreqEnum.Normal;
 
+  console.debug("Registering Cors middleware");
   UseCorsMiddleware(options);
+
+  console.debug("Registering Jwt middleware");
   UseJwtMiddleware(options);
 
-  const onCreatedGraphQLServer = () => {
-    UseGQLUploadExpress(options);
-  };
-  const onStartedGraphQLServer = (
-    server: ApolloServer<BaseContext>,
-    app: Express
-  ) => {
-    // server.applyMiddleware({ app: app });
-  };
+  if (options.controllers && options.controllers.length > 0) {
+    console.debug("Registering Rest middleware");
+    UseRestMiddleware(options);
+  }
 
-  await UseGqlServer(options, onCreatedGraphQLServer, onStartedGraphQLServer);
+  if (options.resolvers && options.resolvers.length > 0) {
+    console.debug("Registering Graphql middleware");
+    UseGqlServer(options);
+  }
 
   if (options.middlewares) {
+    console.debug("Registering Extras middleware");
     options.middlewares(options.app);
   }
 
