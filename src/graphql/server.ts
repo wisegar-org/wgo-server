@@ -38,8 +38,8 @@ export const getApolloServer = async (options: IServerOptions) => {
     schema: schema,
     plugins: [
       options.production
-        ? ApolloServerPluginLandingPageLocalDefault()
-        : ApolloServerPluginLandingPageProductionDefault(),
+        ? ApolloServerPluginLandingPageProductionDefault()
+        : ApolloServerPluginLandingPageLocalDefault(),
     ],
   });
 };
