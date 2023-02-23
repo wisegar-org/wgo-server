@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { NonEmptyArray, Query, Resolver } from "type-graphql";
+import { Authorized, NonEmptyArray, Query, Resolver } from "type-graphql";
 import { Controller } from "./decorators/rest/Controller";
 import { Get } from "./decorators/rest/Get";
 import { IContextOptions } from "./interfaces/IContextOptions";
@@ -45,6 +45,7 @@ export { UseGQLUploadExpress } from "./middlewares/GqlUploadMiddleware";
 
 @Resolver()
 export class VersionResolver {
+  @Authorized()
   @Query(() => String)
   async apiVersion() {
     return "0.0.0.0.0";
@@ -54,10 +55,24 @@ const authorizationHandler = async (userContext: any, permissions: any) => {
   return true;
 };
 const contextHandler = async (options: IContextOptions): Promise<any> => {
-  return {};
+  const { tokenPayload, requestHeaders, responseHeaders } = options;
+  return {
+    tokenPayload,
+    requestHeaders,
+    responseHeaders,
+  };
 };
 export const errorHandler = (err: any): any => {
-  return new Error();
+  return {
+    message: err.message,
+    code:
+      err.originalError && err.originalError.code
+        ? err.originalError.code
+        : "ServerError",
+    locations: err.locations,
+    path: err.path,
+    original: err.originalError,
+  };
 };
 @Controller("/health")
 export class HealthController {
