@@ -1,6 +1,6 @@
 {
   "name": "@wisegar-org/wgo-server",
-  "version": "0.0.1-build.57",
+  "version": "0.0.1-build.58",
   "description": "WGO Server Module",
   "main": "build/index.js",
   "files": [
