@@ -2,18 +2,17 @@ import { Context } from "@wisegar-org/wgo-core";
 import { DocumentNode } from "graphql";
 import { AuthMode, NonEmptyArray } from "type-graphql";
 import { IContextOptions } from "./IContextOptions";
-import { Express } from "express";
 import { ExpirationFreqEnum } from "../services/JwtAuthService";
 
 export interface IServerOptions {
   /**
    * @summary If not provided a new instance on Express app server w'll be used
    */
-  app?: Express;
+  app?: any;
   controllers: any[];
   resolvers: NonEmptyArray<Function> | NonEmptyArray<string>;
   authenticator: (userContext: Context, roles: any) => Promise<boolean>;
-  formatError: (err: Error) => Error;
+  formatError: (err: any) => Error;
   context: (contextOptions: IContextOptions) => Promise<Context>;
   authMode?: AuthMode;
   production?: boolean;
