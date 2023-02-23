@@ -6,7 +6,6 @@ import { ApolloServer, BaseContext } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import cors from "cors";
 import { json } from "body-parser";
-import { option } from "yargs";
 
 export const UseGqlServer = async (
   options: IServerOptions,
