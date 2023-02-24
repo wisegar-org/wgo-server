@@ -1,12 +1,3 @@
-import { Request, Response } from "express";
-import { Authorized, NonEmptyArray, Query, Resolver } from "type-graphql";
-import { Controller } from "./decorators/rest/Controller";
-import { Get } from "./decorators/rest/Get";
-import { IContextOptions } from "./interfaces/IContextOptions";
-import { IServerOptions } from "./interfaces/IServerOptions";
-import { boot } from "./server/boot";
-import { ExpirationFreqEnum } from "./services/JwtAuthService";
-
 export * from "./interfaces/IContextOptions";
 export * from "./interfaces/IResponse";
 export * from "./interfaces/IRouteDefinition";
@@ -28,7 +19,7 @@ export * from "./middlewares/GqlUploadMiddleware";
 export * from "./middlewares/JwtMiddleware";
 export * from "./middlewares/RestMiddleware";
 
-export * from "./server/boot";
+export * from "./handlers/bootHandler";
 export * from "./graphql/server";
 export * from "./rest/router";
 
