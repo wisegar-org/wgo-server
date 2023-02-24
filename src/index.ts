@@ -27,6 +27,7 @@ export * from "./rest/router";
  * External exports
  */
 export { Express } from "express";
+export { NonEmptyArray } from "type-graphql";
 export { UseJwtMiddleware } from "./middlewares/JwtMiddleware";
 export { UseCorsMiddleware } from "./middlewares/CorsMiddleware";
 export { UseGqlServer } from "./middlewares/GqlServerMiddleware";
