@@ -29,6 +29,18 @@
     "url": "https://github.com/wisegar-org/wgo-server/issues"
   },
   "homepage": "https://github.com/wisegar-org/wgo-server#readme",
+  "dependencies": {
+    "@apollo/server": "^4.4.0",
+    "@wisegar-org/wgo-core": "0.0.1-build.30",
+    "cors": "^2.8.5",
+    "dayjs": "^1.11.7",
+    "graphql": "^16.6.0",
+    "graphql-upload": "13.0.0",
+    "jsonwebtoken": "8.5.1",
+    "reflect-metadata": "0.1.13",
+    "type-graphql": "^2.0.0-beta.1",
+    "wgo-extensions": "^0.0.1"
+  },
   "devDependencies": {
     "@types/cors": "^2.8.13",
     "@types/graphql-upload": "8.0.12",
@@ -41,17 +53,5 @@
     "ts-jest": "27.1.4",
     "ts-node": "10.7.0",
     "typescript": "^4.9.5"
-  },
-  "dependencies": {
-    "@apollo/server": "^4.4.0",
-    "@wisegar-org/wgo-core": "0.0.1-build.30",
-    "cors": "^2.8.5",
-    "dayjs": "^1.11.7",
-    "graphql": "^16.6.0",
-    "graphql-upload": "13.0.0",
-    "jsonwebtoken": "8.5.1",
-    "reflect-metadata": "0.1.13",
-    "type-graphql": "^2.0.0-beta.1",
-    "wgo-extensions": "^0.0.1"
   }
 }
