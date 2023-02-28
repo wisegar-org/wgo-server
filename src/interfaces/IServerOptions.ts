@@ -3,6 +3,7 @@ import { DocumentNode } from "graphql";
 import { AuthMode, NonEmptyArray } from "type-graphql";
 import { IContextOptions } from "./IContextOptions";
 import { ExpirationFreqEnum } from "../services/JwtAuthService";
+import { CorsOptions } from "cors";
 
 export interface IServerOptions {
   /**
@@ -26,6 +27,7 @@ export interface IServerOptions {
   maxFiles?: number;
   typeDefs?: DocumentNode | Array<DocumentNode> | string | Array<string>;
   useCors?: boolean;
+  corsOptions?: CorsOptions;
   publicKey: string;
   privateKey: string;
   expiresIn: any;
