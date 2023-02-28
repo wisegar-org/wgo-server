@@ -17,7 +17,6 @@ export const UseGqlServer = (options: IServerOptions) => {
     server.start().then(() => {
       options.app.use(
         "/graphql",
-        cors<cors.CorsRequest>(),
         json(),
         expressMiddleware(server, {
           context: async ({ req, res }) => contextHandler(options, req, res),
