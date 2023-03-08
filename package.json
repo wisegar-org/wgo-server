@@ -1,5 +1,5 @@
 {
-  "name": "@wisegar-org/wgo-server",
+  "name": "wgo-server",
   "version": "0.0.5-2",
   "description": "WGO Server Module",
   "main": "build/index.js",
@@ -31,7 +31,6 @@
   "homepage": "https://github.com/wisegar-org/wgo-server#readme",
   "dependencies": {
     "@apollo/server": "^4.4.0",
-    "@wisegar-org/wgo-core": "0.0.1-build.30",
     "cors": "^2.8.5",
     "dayjs": "^1.11.7",
     "graphql": "^16.6.0",
@@ -39,6 +38,7 @@
     "jsonwebtoken": "8.5.1",
     "reflect-metadata": "0.1.13",
     "type-graphql": "^2.0.0-beta.1",
+    "wgo-base": "^0.0.1",
     "wgo-extensions": "^0.0.1"
   },
   "devDependencies": {
