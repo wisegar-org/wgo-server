@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import { buildSchema } from "type-graphql";
-import { Context } from "@wisegar-org/wgo-core";
+import { Context } from "wgo-base";
 import { IServerOptions } from "../interfaces/IServerOptions";
 
 export const getGqlSchema = async (options: IServerOptions) => {

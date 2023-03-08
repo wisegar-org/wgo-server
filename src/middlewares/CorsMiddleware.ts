@@ -1,4 +1,4 @@
-import { IsNullOrUndefined } from "@wisegar-org/wgo-object-extensions";
+import { IsNullOrUndefined } from "wgo-extensions";
 import cors from "cors";
 import { IServerOptions } from "../interfaces/IServerOptions";
 

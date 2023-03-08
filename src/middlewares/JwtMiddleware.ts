@@ -1,5 +1,5 @@
-import { AuthError } from "@wisegar-org/wgo-core";
-import { IsNullOrUndefined } from "@wisegar-org/wgo-object-extensions";
+import { AuthError } from "wgo-base";
+import { IsNullOrUndefined } from "wgo-extensions";
 import express from "express";
 import { IContextOptions } from "../interfaces/IContextOptions";
 import { IServerOptions } from "../interfaces/IServerOptions";

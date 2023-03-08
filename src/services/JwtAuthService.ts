@@ -1,7 +1,4 @@
-import {
-  IsNull,
-  IsStringEmptyNullOrUndefined,
-} from "@wisegar-org/wgo-object-extensions";
+import { IsNull, IsStringEmptyNullOrUndefined } from "wgo-extensions";
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 

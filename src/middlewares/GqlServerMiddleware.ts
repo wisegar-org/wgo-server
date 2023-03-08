@@ -1,4 +1,4 @@
-import { IsNull, IsNullOrUndefined } from "@wisegar-org/wgo-object-extensions";
+import { IsNull, IsNullOrUndefined } from "wgo-extensions";
 import { contextHandler, getApolloServer } from "../graphql/server";
 import { IServerOptions } from "../interfaces/IServerOptions";
 import { expressMiddleware } from "@apollo/server/express4";

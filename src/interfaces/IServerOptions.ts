@@ -1,4 +1,4 @@
-import { Context } from "@wisegar-org/wgo-core";
+import { Context } from "wgo-base";
 import { DocumentNode } from "graphql";
 import { AuthMode, NonEmptyArray } from "type-graphql";
 import { IContextOptions } from "./IContextOptions";
