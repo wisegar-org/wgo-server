@@ -10,6 +10,8 @@ import { UseRestMiddleware } from "../middlewares/RestMiddleware";
 export const boot = async (options: IServerOptions, onStart?: any) => {
   options.app = options.app ? options.app : express();
 
+  options.app.use(express.json());
+
   options.expirationFreq = options.expirationFreq
     ? options.expirationFreq
     : ExpirationFreqEnum.Normal;
