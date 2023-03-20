@@ -1,11 +1,13 @@
 import { Authorized, NonEmptyArray, Query, Resolver } from "type-graphql";
 import { Post } from "wgo-base";
-import { Controller } from "../decorators/rest/Controller";
-import { Get } from "../decorators/rest/Get";
-import { boot } from "../handlers/bootHandler";
-import { IContextOptions } from "../interfaces/IContextOptions";
-import { IServerOptions } from "../interfaces/IServerOptions";
-import { ExpirationFreqEnum } from "../services/JwtAuthService";
+import {
+  boot,
+  Controller,
+  ExpirationFreqEnum,
+  Get,
+  IContextOptions,
+  IServerOptions,
+} from ".."; // index file imports
 
 @Resolver()
 export class VersionResolver {

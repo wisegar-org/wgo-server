@@ -1,10 +1,10 @@
 import { IsNull, IsNullOrUndefined } from "wgo-extensions";
-import { contextHandler, getApolloServer } from "../graphql/server";
+import { getApolloServer } from "../graphql/server";
 import { IServerOptions } from "../interfaces/IServerOptions";
 import { expressMiddleware } from "@apollo/server/express4";
-import cors from "cors";
 import { json } from "body-parser";
 import { UseGQLUploadExpress } from "./GqlUploadMiddleware";
+import { contextHandler } from "../handlers/contextHandler";
 
 export const UseGqlServer = (options: IServerOptions) => {
   if (IsNullOrUndefined(options)) throw new Error("Invalid options parameter");

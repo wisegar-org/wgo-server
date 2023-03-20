@@ -1,5 +1,5 @@
 import { IsNull, IsStringEmptyNullOrUndefined } from "wgo-extensions";
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
 export enum ExpirationFreqEnum {
