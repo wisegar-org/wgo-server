@@ -1,6 +1,6 @@
 {
   "name": "wgo-server",
-  "version": "0.0.2",
+  "version": "0.0.2-1",
   "description": "WGO Server Module",
   "main": "build/index.js",
   "files": [
