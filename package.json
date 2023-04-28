@@ -23,7 +23,7 @@
     "nodejs",
     "typescript"
   ],
-  "author": "Wisegar.org Development Group",
+  "author": "Wisegar.org Development Group <info@wisegar.org>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/wisegar-org/wgo-server/issues"
@@ -38,7 +38,7 @@
     "jsonwebtoken": "8.5.1",
     "reflect-metadata": "0.1.13",
     "type-graphql": "2.0.0-beta.1",
-    "wgo-base": "^0.0.1",
+    "wgo-base": "^0.0.2-0",
     "wgo-extensions": "^0.0.1"
   },
   "devDependencies": {
