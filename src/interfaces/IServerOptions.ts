@@ -4,6 +4,7 @@ import { AuthMode, NonEmptyArray } from "type-graphql";
 import { IContextOptions } from "./IContextOptions";
 import { ExpirationFreqEnum } from "../services/JwtAuthService";
 import { CorsOptions } from "cors";
+import { ValidateSettings } from "type-graphql/dist/schema/build-context";
 
 export interface IServerOptions {
   /**
@@ -19,6 +20,7 @@ export interface IServerOptions {
   production?: boolean;
   middlewares?: (app: any) => void;
   port?: number;
+  gqlValidateSettings?: ValidateSettings;
   //Max allowed non-file multipart form field size in bytes; enough for your queries (default: 1 MB).
   maxFieldSize?: number;
   //Max allowed file size in bytes (default: Infinity).
