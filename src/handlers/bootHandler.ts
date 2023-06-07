@@ -6,6 +6,7 @@ import { UseCorsMiddleware } from "../middlewares/CorsMiddleware";
 import { UseGqlServer } from "../middlewares/GqlServerMiddleware";
 import { ExpirationFreqEnum } from "../services/JwtAuthService";
 import { UseRestMiddleware } from "../middlewares/RestMiddleware";
+import { IsNullOrUndefined } from "wgo-extensions";
 
 export const boot = async (
   options: IServerOptions,
@@ -39,6 +40,30 @@ export const boot = async (
     console.debug("Registering Extras middleware");
     options.middlewares(options.app);
   }
+
+  options.app?.listen(options.port, () => {
+    if (onStart) onStart(options);
+    console.log(`> Listening on port ${options.port}`);
+  });
+
+  process.on("SIGINT", function () {
+    process.exit(0);
+  });
+};
+
+export const bootOnly = async (
+  options: IServerOptions,
+  onSetup: (options: IServerOptions) => Promise<void>,
+  onStart?: (options: IServerOptions) => Promise<void>
+) => {
+  options.app = options.app ? options.app : express();
+  options.app.use(express.json());
+  options.expirationFreq = options.expirationFreq
+    ? options.expirationFreq
+    : ExpirationFreqEnum.Normal;
+
+  if (IsNullOrUndefined(onSetup)) throw new Error("Invalid onSetup parameter");
+  onSetup(options);
 
   options.app?.listen(options.port, () => {
     if (onStart) onStart(options);
