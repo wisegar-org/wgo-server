@@ -8,10 +8,9 @@ import { ExpirationFreqEnum } from "../services/JwtAuthService";
 import { UseRestMiddleware } from "../middlewares/RestMiddleware";
 import { IsNullOrUndefined } from "wgo-extensions";
 
-export const boot = async (
-  options: IServerOptions,
-  onStart?: (options: IServerOptions) => Promise<void>
-) => {
+export type BootFunc = (options: IServerOptions) => void;
+
+export const boot = async (options: IServerOptions, onStart?: BootFunc) => {
   options.app = options.app ? options.app : express();
 
   options.app.use(express.json());
@@ -53,8 +52,8 @@ export const boot = async (
 
 export const bootOnly = async (
   options: IServerOptions,
-  onSetup: (options: IServerOptions) => Promise<void>,
-  onStart?: (options: IServerOptions) => Promise<void>
+  onSetup: BootFunc,
+  onStart?: BootFunc
 ) => {
   options.app = options.app ? options.app : express();
   options.app.use(express.json());
