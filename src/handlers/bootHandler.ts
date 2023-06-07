@@ -7,7 +7,10 @@ import { UseGqlServer } from "../middlewares/GqlServerMiddleware";
 import { ExpirationFreqEnum } from "../services/JwtAuthService";
 import { UseRestMiddleware } from "../middlewares/RestMiddleware";
 
-export const boot = async (options: IServerOptions, onStart?: any) => {
+export const boot = async (
+  options: IServerOptions,
+  onStart?: (options: IServerOptions) => Promise<void>
+) => {
   options.app = options.app ? options.app : express();
 
   options.app.use(express.json());
@@ -38,7 +41,7 @@ export const boot = async (options: IServerOptions, onStart?: any) => {
   }
 
   options.app?.listen(options.port, () => {
-    if (onStart) onStart();
+    if (onStart) onStart(options);
     console.log(`> Listening on port ${options.port}`);
   });
 
