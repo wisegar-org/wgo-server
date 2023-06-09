@@ -1,8 +1,12 @@
+export interface IRouteAuthPermission {
+  authorize: boolean;
+  roles: string[];
+}
 export interface RouteDefinition {
   // Path to our route
   path: string;
   // HTTP Request method (get, post, ...)
-  requestMethod: 'get' | 'post' | 'delete' | 'options' | 'put';
+  requestMethod: "get" | "post" | "delete" | "options" | "put";
   // Method name within our class responsible for this route
   methodName: string;
   // Controller
@@ -11,6 +15,8 @@ export interface RouteDefinition {
   formParams: unknown;
   // Body
   formBody: unknown;
-  // response
+  // Response
   response: unknown;
+  // Authorization Data
+  authorization?: IRouteAuthPermission | undefined;
 }
