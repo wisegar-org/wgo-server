@@ -1,6 +1,6 @@
 export interface IRouteAuthPermission {
-  authorize: boolean;
-  roles: string[];
+  authorize?: boolean;
+  roles?: string[];
 }
 export interface RouteDefinition {
   // Path to our route
