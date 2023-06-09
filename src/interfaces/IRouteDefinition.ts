@@ -12,11 +12,11 @@ export interface RouteDefinition {
   // Controller
   controller: string;
   // Form
-  formParams: unknown;
+  formParams?: unknown | undefined;
   // Body
-  formBody: unknown;
+  formBody?: unknown | undefined;
   // Response
-  response: unknown;
+  response?: unknown | undefined;
   // Authorization Data
   authorization?: IRouteAuthPermission | undefined;
 }
