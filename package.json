@@ -33,25 +33,34 @@
     "@apollo/server": "^4.4.0",
     "cors": "^2.8.5",
     "dayjs": "^1.11.7",
+    "express-fileupload": "1.4.0",
     "graphql": "^16.6.0",
     "graphql-upload": "13.0.0",
     "jsonwebtoken": "8.5.1",
     "reflect-metadata": "0.1.13",
     "type-graphql": "2.0.0-beta.1",
-    "wgo-base": "^0.0.2-0",
-    "wgo-extensions": "^0.0.1"
+    "typeorm": "0.2.45",
+    "wgo-crypto": "^0.0.4",
+    "wgo-extensions": "^0.0.1",
+    "wgo-mailer": "^0.0.3",
+    "wgo-settings": "^0.0.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",
+    "@types/express-fileupload": "1.2.2",
+    "@types/fs-extra": "9.0.13",
     "@types/graphql-upload": "8.0.12",
     "@types/jest": "27.4.1",
     "@types/jsonwebtoken": "8.5.8",
     "@types/node": "^18.13.0",
-    "fs-extra": "10.1.0",
+    "fs-extra": "^10.1.0",
     "jest": "27.5.1",
     "nodemon": "^2.0.20",
+    "rimraf": "3.0.2",
+    "supertest": "6.2.2",
     "ts-jest": "27.1.4",
     "ts-node": "10.7.0",
-    "typescript": "^4.9.5"
+    "tslint": "5.20.1",
+    "typescript": "4.9.5"
   }
 }

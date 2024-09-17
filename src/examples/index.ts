@@ -1,5 +1,4 @@
 import { Authorized, NonEmptyArray, Query, Resolver } from "type-graphql";
-import { Post } from "wgo-base";
 import {
   boot,
   Controller,
@@ -7,6 +6,7 @@ import {
   Get,
   IContextOptions,
   IServerOptions,
+  Post,
 } from ".."; // index file imports
 
 @Resolver()

@@ -1,8 +1,8 @@
 import "reflect-metadata";
 import { buildSchema, BuildSchemaOptions } from "type-graphql";
-import { Context } from "wgo-base";
 import { IServerOptions } from "../interfaces/IServerOptions";
 import { IsNullOrUndefined } from "wgo-extensions";
+import { Context } from "../models/Models";
 
 export const getGqlSchema = async (options: IServerOptions) => {
   const buildSchemaOptions: BuildSchemaOptions = {

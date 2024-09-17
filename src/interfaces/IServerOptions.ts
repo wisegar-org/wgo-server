@@ -1,10 +1,10 @@
-import { Context } from "wgo-base";
 import { DocumentNode } from "graphql";
 import { AuthMode, NonEmptyArray } from "type-graphql";
 import { IContextOptions } from "./IContextOptions";
 import { ExpirationFreqEnum } from "../services/JwtAuthService";
 import { CorsOptions } from "cors";
 import { ValidateSettings } from "type-graphql/dist/schema/build-context";
+import { Context } from "../models/Models";
 
 export interface IServerOptions {
   /**

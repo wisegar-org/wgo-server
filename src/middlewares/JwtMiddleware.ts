@@ -1,4 +1,3 @@
-import { AuthError } from "wgo-base";
 import { IsNullOrUndefined } from "wgo-extensions";
 import express from "express";
 import { IContextOptions } from "../interfaces/IContextOptions";
@@ -8,6 +7,7 @@ import {
   jwtValidator,
   validateAccessToken,
 } from "../services/JwtAuthService";
+import { AuthError } from "../errors/AuthError";
 
 const isGraphql = (req: express.Request) => {
   return req.originalUrl.toLocaleLowerCase().includes("graphql");

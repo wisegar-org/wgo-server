@@ -1,4 +1,4 @@
-import { IResponse } from "../interfaces/IResponse";
+import { IResponse } from "../models/responses/Response";
 
 export const HttpResponse = {
   GetBadRequestResponse: (data: unknown = null) => {
@@ -6,6 +6,10 @@ export const HttpResponse = {
       ok: false,
       statusCode: 400,
       data: data ? data : null,
+      isSuccess: false,
+      result: undefined,
+      message: null,
+      error: null,
     };
     return response;
   },
@@ -14,6 +18,10 @@ export const HttpResponse = {
       ok: false,
       statusCode: 500,
       data: data ? data : null,
+      isSuccess: false,
+      result: undefined,
+      message: null,
+      error: null,
     };
     return response;
   },
@@ -22,6 +30,10 @@ export const HttpResponse = {
       ok: true,
       statusCode: 200,
       data: data ? data : null,
+      isSuccess: false,
+      result: undefined,
+      message: null,
+      error: null,
     };
     return response;
   },
@@ -36,6 +48,10 @@ export const JsonResponse = (
     ok: status,
     statusCode: statusCode,
     data: data,
+    isSuccess: false,
+    result: undefined,
+    message: null,
+    error: null,
   };
   return response;
 };
