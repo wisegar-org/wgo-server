@@ -40,7 +40,7 @@
     "reflect-metadata": "0.1.13",
     "type-graphql": "2.0.0-beta.1",
     "typeorm": "0.2.45",
-    "wgo-crypto": "^0.0.5",
+    "wgo-crypto": "^0.0.6",
     "wgo-extensions": "^0.0.5",
     "wgo-mailer": "^0.0.4",
     "wgo-settings": "^0.0.1"
